@@ -8,103 +8,127 @@
 </head>
 <body>
 
-  <!-- Pantalla inicial para activar audio -->
-  <div id="inicio" class="pantalla-inicio">
-    <h1>Un pequeño detalle para ti, Sonaly...</h1>
-    <button id="btn-abrir" class="btn">Toca aquí para verlo</button>
-  </div>
+  <!-- Audio de fondo -->
+  <audio id="audio-fondo" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- Contenido Principal -->
-  <div id="sorpresa" class="contenido oculto">
-    
-    <audio id="audio-fondo" loop>
-      <source src="musica.mp3" type="audio/mpeg">
-    </audio>
-
+  <!-- PANTALLA 1: Solo mensaje y botón de inicio -->
+  <div id="pantalla-mensaje">
     <h1>¡Feliz Cumpleaños, Sonaly! ✨</h1>
-    
-    <div class="mensaje">
+    <div class="caja-mensaje">
       <p>Hoy celebras un año más de vida. Quería prepararte este detalle porque eres una persona muy especial y quiero que sepas lo mucho que te aprecio y valoro.</p>
       <p>Gracias por todos los buenos momentos y los bonitos recuerdos compartidos. ¡Espero que pases un día increíble!</p>
     </div>
+    <button id="btn-comenzar" class="btn-bonito">Ver mi sorpresa ▶</button>
+  </div>
 
-    <!-- Álbum de Fotos Interactivo -->
-    <div class="album-container">
-      <div class="marco-foto">
-        <img id="foto-visor" src="foto1.jpeg" alt="">
+  <!-- PANTALLA 2: Visor interactivo (fotos y video al final) -->
+  <div id="pantalla-visor" class="oculto">
+    
+    <div class="contenedor-media">
+      <!-- Contenedor de fotos -->
+      <div id="contenedor-imagen">
+        <img id="foto-actual" src="" alt="">
       </div>
-      <p id="texto-visor" class="texto-foto">Escribe aquí tu primer comentario...</p>
       
-      <div class="controles-album">
-        <button id="btn-anterior" class="btn-control">◀ Anterior</button>
-        <span id="contador-fotos">1 / 11</span>
-        <button id="btn-siguiente" class="btn-control">Siguiente ▶</button>
+      <!-- Contenedor del video -->
+      <div id="contenedor-video" class="oculto">
+        <video id="video-actual" controls preload="metadata">
+          <source src="" type="video/mp4">
+        </video>
       </div>
     </div>
 
-    <!-- Sección del Video -->
-    <div class="seccion-video">
-      <h2>Un bonito recuerdo...</h2>
-      <video controls preload="metadata">
-        <source src="video.mp4" type="video/mp4">
-        Tu navegador no soporta la reproducción de este video.
-      </video>
+    <!-- Comentario de cada foto -->
+    <p id="texto-actual" class="texto-comentario"></p>
+    
+    <!-- Controles de navegación -->
+    <div class="controles-navegacion">
+      <button id="btn-anterior" class="btn-nav">◀ Anterior</button>
+      <span id="indicador-pagina">1 / 12</span>
+      <button id="btn-siguiente" class="btn-nav">Siguiente ▶</button>
     </div>
 
   </div>
 
   <script>
-    // 1. Ocultar inicio y reproducir música
-    const btnAbrir = document.getElementById('btn-abrir');
-    const pantallaInicio = document.getElementById('inicio');
-    const pantallaSorpresa = document.getElementById('sorpresa');
-    const audioFondo = document.getElementById('audio-fondo');
-
-    btnAbrir.addEventListener('click', () => {
-      pantallaInicio.style.display = 'none';
-      pantallaSorpresa.classList.remove('oculto');
-      pantallaSorpresa.classList.add('mostrar');
-      audioFondo.play();
-    });
-
-    // 2. Lógica del Álbum de Fotos (Edita tus textos aquí)
-    const album = [
-      { archivo: "foto1.jpeg", comentario: "Escribe aquí el comentario para la foto 1." },
-      { archivo: "foto2.jpeg", comentario: "Escribe aquí el comentario para la foto 2." },
-      { archivo: "foto3.jpeg", comentario: "Escribe aquí el comentario para la foto 3." },
-      { archivo: "foto4.jpeg", comentario: "Escribe aquí el comentario para la foto 4." },
-      { archivo: "foto5.jpeg", comentario: "Escribe aquí el comentario para la foto 5." },
-      { archivo: "foto6.jpeg", comentario: "Escribe aquí el comentario para la foto 6." },
-      { archivo: "foto7.jpeg", comentario: "Escribe aquí el comentario para la foto 7." },
-      { archivo: "foto8.jpeg", comentario: "Escribe aquí el comentario para la foto 8." },
-      { archivo: "foto9.jpeg", comentario: "Escribe aquí el comentario para la foto 9." },
-      { archivo: "foto10.jpeg", comentario: "Escribe aquí el comentario para la foto 10." },
-      { archivo: "foto11.jpeg", comentario: "Escribe aquí el comentario para la foto 11." }
+    // LISTA DE PÁGINAS: Edita los textos dentro de las comillas simples
+    const paginas = [
+      { tipo: 'foto', archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
+      { tipo: 'foto', archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
+      { tipo: 'foto', archivo: 'foto3.jpeg', texto: 'Comentario para la foto 3...' },
+      { tipo: 'foto', archivo: 'foto4.jpeg', texto: 'Comentario para la foto 4...' },
+      { tipo: 'foto', archivo: 'foto5.jpeg', texto: 'Comentario para la foto 5...' },
+      { tipo: 'foto', archivo: 'foto6.jpeg', texto: 'Comentario para la foto 6...' },
+      { tipo: 'foto', archivo: 'foto7.jpeg', texto: 'Comentario para la foto 7...' },
+      { tipo: 'foto', archivo: 'foto8.jpeg', texto: 'Comentario para la foto 8...' },
+      { tipo: 'foto', archivo: 'foto9.jpeg', texto: 'Comentario para la foto 9...' },
+      { tipo: 'foto', archivo: 'foto10.jpeg', texto: 'Comentario para la foto 10...' },
+      { tipo: 'foto', archivo: 'foto11.jpeg', texto: 'Comentario para la foto 11...' },
+      { tipo: 'video', archivo: 'video.mp4', texto: 'Un bonito recuerdo para terminar. ¡Feliz cumpleaños!' }
     ];
 
     let indiceActual = 0;
-    const fotoVisor = document.getElementById('foto-visor');
-    const textoVisor = document.getElementById('texto-visor');
-    const contadorFotos = document.getElementById('contador-fotos');
 
-    // Cargar la primera foto al iniciar
-    fotoVisor.src = album[0].archivo;
-    textoVisor.textContent = album[0].comentario;
+    const pantallaMensaje = document.getElementById('pantalla-mensaje');
+    const pantallaVisor = document.getElementById('pantalla-visor');
+    const audioFondo = document.getElementById('audio-fondo');
+    
+    const contImagen = document.getElementById('contenedor-imagen');
+    const fotoActual = document.getElementById('foto-actual');
+    const contVideo = document.getElementById('contenedor-video');
+    const videoActual = document.getElementById('video-actual');
+    
+    const textoActual = document.getElementById('texto-actual');
+    const btnAnterior = document.getElementById('btn-anterior');
+    const btnSiguiente = document.getElementById('btn-siguiente');
+    const indicadorPagina = document.getElementById('indicador-pagina');
 
-    document.getElementById('btn-siguiente').addEventListener('click', () => {
-      indiceActual = (indiceActual + 1) % album.length;
-      actualizarAlbum();
+    // Al hacer clic en el botón inicial
+    document.getElementById('btn-comenzar').addEventListener('click', () => {
+      pantallaMensaje.style.display = 'none';
+      pantallaVisor.classList.remove('oculto');
+      pantallaVisor.classList.add('mostrar-flex');
+      audioFondo.play();
+      actualizarPagina();
     });
 
-    document.getElementById('btn-anterior').addEventListener('click', () => {
-      indiceActual = (indiceActual - 1 + album.length) % album.length;
-      actualizarAlbum();
+    // Control siguiente
+    btnSiguiente.addEventListener('click', () => {
+      if (indiceActual < paginas.length - 1) {
+        indiceActual++;
+        actualizarPagina();
+      }
     });
 
-    function actualizarAlbum() {
-      fotoVisor.src = album[indiceActual].archivo;
-      textoVisor.textContent = album[indiceActual].comentario;
-      contadorFotos.textContent = (indiceActual + 1) + " / " + album.length;
+    // Control anterior
+    btnAnterior.addEventListener('click', () => {
+      if (indiceActual > 0) {
+        indiceActual--;
+        actualizarPagina();
+      }
+    });
+
+    function actualizarPagina() {
+      const item = paginas[indiceActual];
+
+      if (item.tipo === 'foto') {
+        contImagen.style.display = 'block';
+        contVideo.style.display = 'none';
+        videoActual.pause();
+        fotoActual.src = item.archivo;
+      } else if (item.tipo === 'video') {
+        contImagen.style.display = 'none';
+        contVideo.style.display = 'block';
+        videoActual.src = item.archivo;
+      }
+
+      textoActual.textContent = item.texto;
+      indicadorPagina.textContent = (indiceActual + 1) + " / " + paginas.length;
+
+      btnAnterior.style.visibility = indiceActual === 0 ? 'hidden' : 'visible';
+      btnSiguiente.style.visibility = indiceActual === paginas.length - 1 ? 'hidden' : 'visible';
     }
   </script>
 </body>
