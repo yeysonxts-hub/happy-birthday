@@ -3,81 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Sitio Web | Portafolio</title>
+  <title>¡Feliz Cumpleaños, Sonaly!</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Navegación -->
-  <header class="navbar">
-    <div class="logo">&lt;Dev /&gt;</div>
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#habilidades">Habilidades</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
+  <!-- Pantalla inicial para activar el audio -->
+  <div id="inicio" class="pantalla-inicio">
+    <h1>Un pequeño detalle para ti, Sonaly...</h1>
+    <button id="btn-abrir" class="btn">Toca aquí para verlo</button>
+  </div>
 
-  <!-- Sección de Bienvenida (Hero) -->
-  <section id="inicio" class="hero">
-    <div class="hero-content">
-      <span class="badge">Disponible para nuevos proyectos</span>
-      <h1>Hola, soy un desarrollador en formación</h1>
-      <p>Construyo soluciones de software, sistemas embebidos, prototipos y herramientas web.</p>
-      <div class="hero-actions">
-        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
-        <a href="#contacto" class="btn btn-secondary">Contactar</a>
-      </div>
+  <!-- Contenido de la sorpresa (oculto inicialmente) -->
+  <div id="sorpresa" class="contenido oculto">
+    
+    <!-- Archivo de música -->
+    <audio id="audio-fondo" loop>
+      <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <h1>¡Feliz Cumpleaños, Sonaly! ✨</h1>
+    
+    <div class="mensaje">
+      <p>Hoy celebras un año más de vida. Quería prepararte este detalle porque eres una persona muy especial y quiero que sepas lo mucho que te aprecio y valoro.</p>
+      <p>Gracias por todos los buenos momentos y los bonitos recuerdos compartidos. ¡Espero que pases un día increíble y que este nuevo año te traiga muchísima felicidad y éxitos!</p>
     </div>
-  </section>
 
-  <!-- Sección de Habilidades / Tecnologías -->
-  <section id="habilidades" class="skills-section">
-    <h2>Tecnologías y Herramientas</h2>
-    <div class="skills-tags">
-      <span class="tag">HTML5 / CSS3</span>
-      <span class="tag">JavaScript</span>
-      <span class="tag">Python</span>
-      <span class="tag">C / C++</span>
-      <span class="tag">Git & GitHub</span>
+    <!-- Galería de 11 fotos -->
+    <div class="galeria">
+      <img src="foto1.jpg" alt="Recuerdo 1">
+      <img src="foto2.jpg" alt="Recuerdo 2">
+      <img src="foto3.jpg" alt="Recuerdo 3">
+      <img src="foto4.jpg" alt="Recuerdo 4">
+      <img src="foto5.jpg" alt="Recuerdo 5">
+      <img src="foto6.jpg" alt="Recuerdo 6">
+      <img src="foto7.jpg" alt="Recuerdo 7">
+      <img src="foto8.jpg" alt="Recuerdo 8">
+      <img src="foto9.jpg" alt="Recuerdo 9">
+      <img src="foto10.jpg" alt="Recuerdo 10">
+      <img src="foto11.jpg" alt="Recuerdo 11">
     </div>
-  </section>
 
-  <!-- Sección de Proyectos -->
-  <section id="proyectos" class="projects-section">
-    <h2>Proyectos Destacados</h2>
-    <div class="grid">
-      
-      <article class="card">
-        <div class="card-tag">Web / IoT</div>
-        <h3>Dashboard en Tiempo Real</h3>
-        <p>Monitoreo y adquisición de datos de sensores con interfaz gráfica interactiva y alertas automatizadas.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-tag">Control / Automatización</div>
-        <h3>Controlador de Procesos</h3>
-        <p>Implementación de algoritmos de control digital, filtros numéricos y calibración de variables físicas.</p>
-      </article>
-
-      <article class="card">
-        <div class="card-tag">Software / Lógica</div>
-        <h3>Aplicación de Análisis de Datos</h3>
-        <p>Procesamiento de señales y registros estadísticos para visualización dinámica y generación de reportes.</p>
-      </article>
-
+    <!-- Sección del Video -->
+    <div class="seccion-video">
+      <h2>Un bonito recuerdo...</h2>
+      <video controls preload="metadata">
+        <source src="video.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de este video.
+      </video>
     </div>
-  </section>
 
-  <!-- Pie de página / Contacto -->
-  <footer id="contacto">
-    <div class="footer-content">
-      <p>¿Tienes alguna consulta o propuesta de colaboración?</p>
-      <a href="mailto:tu-correo@ejemplo.com" class="contact-email">tu-correo@ejemplo.com</a>
-      <p class="copyright">© 2026 Creado con código propio.</p>
-    </div>
-  </footer>
+  </div>
 
+  <script>
+    const btnAbrir = document.getElementById('btn-abrir');
+    const pantallaInicio = document.getElementById('inicio');
+    const pantallaSorpresa = document.getElementById('sorpresa');
+    const audioFondo = document.getElementById('audio-fondo');
+
+    btnAbrir.addEventListener('click', () => {
+      // Ocultar pantalla de inicio
+      pantallaInicio.style.display = 'none';
+      // Mostrar la sorpresa
+      pantallaSorpresa.classList.remove('oculto');
+      pantallaSorpresa.classList.add('mostrar');
+      // Reproducir música
+      audioFondo.play();
+    });
+  </script>
 </body>
 </html>
