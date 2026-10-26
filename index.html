@@ -29,19 +29,19 @@
       <p>Gracias por todos los buenos momentos y los bonitos recuerdos compartidos. ¡Espero que pases un día increíble y que este nuevo año te traiga muchísima felicidad y éxitos!</p>
     </div>
 
-    <!-- Galería de 11 fotos -->
+    <!-- Galería de 11 fotos en formato JPEG -->
     <div class="galeria">
-      <img src="foto1.jpg" alt="">
-      <img src="foto2.jpg" alt="">
-      <img src="foto3.jpg" alt="">
-      <img src="foto4.jpg" alt="">
-      <img src="foto5.jpg" alt="">
-      <img src="foto6.jpg" alt="">
-      <img src="foto7.jpg" alt="">
-      <img src="foto8.jpg" alt="">
-      <img src="foto9.jpg" alt="">
-      <img src="foto10.jpg" alt="">
-      <img src="foto11.jpg" alt="">
+      <img src="foto1.jpeg" alt="">
+      <img src="foto2.jpeg" alt="">
+      <img src="foto3.jpeg" alt="">
+      <img src="foto4.jpeg" alt="">
+      <img src="foto5.jpeg" alt="">
+      <img src="foto6.jpeg" alt="">
+      <img src="foto7.jpeg" alt="">
+      <img src="foto8.jpeg" alt="">
+      <img src="foto9.jpeg" alt="">
+      <img src="foto10.jpeg" alt="">
+      <img src="foto11.jpeg" alt="">
     </div>
 
     <!-- Sección del Video -->
@@ -62,12 +62,9 @@
     const audioFondo = document.getElementById('audio-fondo');
 
     btnAbrir.addEventListener('click', () => {
-      // Ocultar pantalla de inicio
       pantallaInicio.style.display = 'none';
-      // Mostrar la sorpresa
       pantallaSorpresa.classList.remove('oculto');
       pantallaSorpresa.classList.add('mostrar');
-      // Reproducir música
       audioFondo.play();
     });
   </script>
