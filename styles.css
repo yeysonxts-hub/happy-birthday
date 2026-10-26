@@ -88,8 +88,8 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 650px;
-  padding: 1.5rem;
+  max-width: 700px;
+  padding: 2rem 1.5rem;
   animation: aparecer 0.8s ease-in-out forwards;
 }
 
@@ -108,7 +108,7 @@ body {
 
 #foto-actual {
   max-width: 100%;
-  max-height: 60vh;
+  max-height: 55vh;
   border-radius: 8px;
   object-fit: contain;
   display: block;
@@ -116,26 +116,30 @@ body {
 
 #video-actual {
   width: 100%;
-  max-height: 60vh;
+  max-height: 55vh;
   border-radius: 8px;
   display: block;
 }
 
 .texto-comentario {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   text-align: center;
   margin: 1.5rem 0;
-  min-height: 3.5rem;
-  font-style: italic;
-  padding: 0 1rem;
+  min-height: 4rem;
+  line-height: 1.7;
+  padding: 1rem;
   color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 179, 193, 0.2);
+  width: 100%;
 }
 
 /* Botones de Navegación */
 .controles-navegacion {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  gap: 2rem;
   width: 100%;
   padding: 0 0.5rem;
 }
@@ -144,7 +148,7 @@ body {
   background: #ff4d6d;
   color: white;
   border: 1px solid #ffb3c1;
-  padding: 0.8rem 1.6rem;
+  padding: 0.8rem 2rem;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 10px;
@@ -156,13 +160,6 @@ body {
 .btn-nav:hover {
   background: #c9184a;
   transform: scale(1.03);
-}
-
-#indicador-pagina {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #ffb3c1;
-  letter-spacing: 2px;
 }
 
 @keyframes aparecer {
