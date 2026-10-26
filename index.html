@@ -40,20 +40,19 @@
       </div>
     </div>
 
-    <!-- Comentario de cada foto -->
-    <p id="texto-actual" class="texto-comentario"></p>
+    <!-- Comentario de cada foto / texto final -->
+    <div id="texto-actual" class="texto-comentario"></div>
     
-    <!-- Controles de navegación -->
+    <!-- Controles de navegación sin contador -->
     <div class="controles-navegacion">
       <button id="btn-anterior" class="btn-nav">◀ Anterior</button>
-      <span id="indicador-pagina">1 / 12</span>
       <button id="btn-siguiente" class="btn-nav">Siguiente ▶</button>
     </div>
 
   </div>
 
   <script>
-    // LISTA DE PÁGINAS: Edita los textos dentro de las comillas simples
+    // LISTA DE PÁGINAS
     const paginas = [
       { tipo: 'foto', archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
       { tipo: 'foto', archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
@@ -66,7 +65,11 @@
       { tipo: 'foto', archivo: 'foto9.jpeg', texto: 'Comentario para la foto 9...' },
       { tipo: 'foto', archivo: 'foto10.jpeg', texto: 'Comentario para la foto 10...' },
       { tipo: 'foto', archivo: 'foto11.jpeg', texto: 'Comentario para la foto 11...' },
-      { tipo: 'video', archivo: 'video.mp4', texto: 'Un bonito recuerdo para terminar. ¡Feliz cumpleaños!' }
+      { 
+        tipo: 'video', 
+        archivo: 'video.mp4', 
+        texto: '¡Feliz cumpleaños! Eres una chica única y muy especial para mí. Te amo demasiado. Fuiste quien le dio brillo a mi vida, antes de conocerte vivía la vida en automático sin ningún propósito y cuando te conocí simplemente todo fluyó, entraste en mi vida sin pedir permiso y me hiciste ver la vida de otra manera. De que no todo estaba perdido para mí y cada que tenía algún problema o me sentía decaído nunca te lo decía, porque no quería preocuparte, pero te juro que cuando te veía todo desaparecía y quería hacerte la chica más feliz del mundo. Sé que no fui perfecto, pero estoy mejorando. Estoy loco por ti, tanto que aguantaría lo que sea por ti. Sé que me dejaste las cosas en claro, pero siento que todavía no pierdes las esperanzas en mí y sabes que puedo mejorar y ya no volver a lo mismo y no te vas a arrepentir si decides confiar en mí una última vez.' 
+      }
     ];
 
     let indiceActual = 0;
@@ -83,7 +86,6 @@
     const textoActual = document.getElementById('texto-actual');
     const btnAnterior = document.getElementById('btn-anterior');
     const btnSiguiente = document.getElementById('btn-siguiente');
-    const indicadorPagina = document.getElementById('indicador-pagina');
 
     // Al hacer clic en el botón inicial
     document.getElementById('btn-comenzar').addEventListener('click', () => {
@@ -125,8 +127,8 @@
       }
 
       textoActual.textContent = item.texto;
-      indicadorPagina.textContent = (indiceActual + 1) + " / " + paginas.length;
 
+      // Ocultar botón anterior en la primera foto y siguiente en la última
       btnAnterior.style.visibility = indiceActual === 0 ? 'hidden' : 'visible';
       btnSiguiente.style.visibility = indiceActual === paginas.length - 1 ? 'hidden' : 'visible';
     }
