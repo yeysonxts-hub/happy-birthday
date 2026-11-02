@@ -16,6 +16,8 @@ body {
   justify-content: center;
   overflow-x: hidden;
   font-family: 'Lato', sans-serif;
+  /* Evitar que se seleccione texto al hacer múltiples clics rápidos */
+  user-select: none; 
 }
 
 .oculto {
@@ -46,7 +48,7 @@ body {
   justify-content: space-between;
   padding: 2.5rem 2rem;
   color: #fff;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   border: 5px solid #fff;
 }
 
@@ -123,24 +125,19 @@ body {
   font-size: 1.2rem;
 }
 
-.btn-abrir-revista {
-  background: #ff4d6d;
-  color: white;
-  border: none;
-  padding: 1.2rem 3rem;
-  font-size: 1.1rem;
+/* Instrucción Titilante (Sustituye al Botón) */
+.instruccion-clic {
+  color: #ff4d6d;
   font-weight: bold;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-  transition: transform 0.2s, background 0.2s;
-  letter-spacing: 2px;
-  z-index: 2;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  animation: parpadear 2.5s infinite;
+  pointer-events: none; /* Que el click la atraviese */
 }
 
-.btn-abrir-revista:hover {
-  background: #c9184a;
-  transform: scale(1.05);
+@keyframes parpadear {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 /* === INTERIOR (LIBRO) === */
@@ -170,7 +167,7 @@ body {
 
 @keyframes flip {
   0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.97) translateX(-10px); }
+  50% { opacity: 0.4; transform: scale(0.97) translateX(-15px); }
   100% { opacity: 1; transform: scale(1); }
 }
 
@@ -193,6 +190,7 @@ body {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   border: 5px solid #fff;
   outline: 1px solid #ffb3c1;
+  pointer-events: none;
 }
 
 .titulo-articulo {
@@ -210,12 +208,13 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* Caja del texto con scroll por si es muy largo */
+/* Caja de texto (Se permite interacción para scroll) */
 .contenedor-texto {
   max-height: 320px;
   overflow-y: auto;
   margin-bottom: 2rem;
-  padding-right: 10px;
+  padding-right: 15px;
+  user-select: text; /* Permitir seleccionar el texto */
 }
 
 .contenedor-texto::-webkit-scrollbar {
@@ -234,27 +233,13 @@ body {
   text-align: justify;
 }
 
-.controles-libro {
-  display: flex;
-  justify-content: space-between;
+.instruccion-interior {
+  text-align: center;
+  color: #ffb3c1;
+  font-weight: bold;
+  font-size: 0.95rem;
   margin-top: auto;
-}
-
-.btn-nav {
-  background: transparent;
-  color: #ff4d6d;
-  border: 1px solid #ff4d6d;
-  padding: 0.5rem 1.5rem;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-nav:hover {
-  background: #ff4d6d;
-  color: #fff;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
@@ -277,5 +262,8 @@ body {
   }
   .contenedor-texto {
     max-height: 250px;
+  }
+  .instruccion-clic {
+    font-size: 0.95rem;
   }
 }
