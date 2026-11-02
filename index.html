@@ -32,14 +32,15 @@
         </div>
       </div>
     </div>
-    <button id="btn-comenzar" class="btn-abrir-revista">ABRIR REVISTA ▶</button>
+    <!-- Mensaje guía en lugar de botón -->
+    <p class="instruccion-clic">Toca la mitad derecha de la pantalla para abrir ▶</p>
   </div>
 
   <!-- === INTERIOR DE LA REVISTA === -->
   <div id="pantalla-visor" class="oculto">
     <div class="libro-abierto" id="libro-abierto">
       
-      <!-- Página Izquierda (Solo Fotos) -->
+      <!-- Página Izquierda (Fotos) -->
       <div class="pagina-media">
         <img id="foto-actual" src="" alt="Recuerdo">
       </div>
@@ -48,14 +49,14 @@
       <div class="pagina-texto">
         <h2 class="titulo-articulo">¿Quién eres tú para mí?</h2>
         <div class="separador-rosa"></div>
+        
+        <!-- Contenedor del texto (aislado para permitir hacer scroll sin cambiar de página) -->
         <div class="contenedor-texto">
           <p id="texto-actual" class="texto-editorial"></p>
         </div>
         
-        <div class="controles-libro">
-          <button id="btn-anterior" class="btn-nav">◀ Pág</button>
-          <button id="btn-siguiente" class="btn-nav">Pág ▶</button>
-        </div>
+        <!-- Mensaje guía interno -->
+        <p class="instruccion-interior" id="guia-interior">◀ Lado izquierdo para volver | Lado derecho para avanzar ▶</p>
       </div>
 
     </div>
@@ -89,47 +90,82 @@
     
     const fotoActual = document.getElementById('foto-actual');
     const textoActual = document.getElementById('texto-actual');
-    const btnAnterior = document.getElementById('btn-anterior');
-    const btnSiguiente = document.getElementById('btn-siguiente');
+    const guiaInterior = document.getElementById('guia-interior');
 
-    // Botón de abrir revista
-    document.getElementById('btn-comenzar').addEventListener('click', () => {
-      pantallaPortada.style.display = 'none';
-      pantallaVisor.style.display = 'flex';
-      audioFondo.play();
-      actualizarPagina();
-    });
+    // === LÓGICA DE CLICS EN PANTALLA ===
+    document.addEventListener('click', (e) => {
+      // Evitar que cambie de página si el usuario está intentando arrastrar/hacer scroll en el texto largo
+      if (e.target.closest('.contenedor-texto')) return;
 
-    // Controles de página
-    btnSiguiente.addEventListener('click', () => {
-      if (indiceActual < paginas.length - 1) {
-        indiceActual++;
-        aplicarAnimacion();
+      const mitadPantalla = window.innerWidth / 2;
+      const clicDerecha = e.clientX > mitadPantalla;
+
+      // Fase 1: Si estamos en la portada
+      if (pantallaPortada.style.display !== 'none') {
+        if (clicDerecha) {
+          pantallaPortada.style.display = 'none';
+          pantallaVisor.style.display = 'flex';
+          audioFondo.play();
+          actualizarPagina();
+        }
+      } 
+      // Fase 2: Si estamos dentro de la revista
+      else {
+        if (clicDerecha) {
+          if (indiceActual < paginas.length - 1) {
+            indiceActual++;
+            aplicarAnimacion();
+          }
+        } else {
+          if (indiceActual > 0) {
+            indiceActual--;
+            aplicarAnimacion();
+          }
+        }
       }
     });
 
-    btnAnterior.addEventListener('click', () => {
-      if (indiceActual > 0) {
-        indiceActual--;
-        aplicarAnimacion();
+    // === CAMBIO VISUAL DEL MOUSE ===
+    document.addEventListener('mousemove', (e) => {
+      const mitad = window.innerWidth / 2;
+      
+      // Portada: Solo cursor en la derecha
+      if (pantallaPortada.style.display !== 'none') {
+        document.body.style.cursor = (e.clientX > mitad) ? 'pointer' : 'default';
+      } 
+      // Interior: Cursor a los lados dependiendo si hay página
+      else {
+        if (e.clientX > mitad && indiceActual < paginas.length - 1) {
+          document.body.style.cursor = 'pointer'; // Hay página siguiente
+        } else if (e.clientX <= mitad && indiceActual > 0) {
+          document.body.style.cursor = 'pointer'; // Hay página anterior
+        } else {
+          document.body.style.cursor = 'default'; // Límite de revista
+        }
       }
     });
 
+    // === ANIMACIÓN DE REVISTA ===
     function aplicarAnimacion() {
       libroAbierto.classList.remove('animacion-pasar');
-      void libroAbierto.offsetWidth; // Reiniciar animación
+      void libroAbierto.offsetWidth; // Reiniciar flujo
       libroAbierto.classList.add('animacion-pasar');
-      setTimeout(actualizarPagina, 150); // Cambiar contenido a mitad del efecto
+      setTimeout(actualizarPagina, 150); // Cambiar la info a mitad de la hoja
     }
 
     function actualizarPagina() {
       const item = paginas[indiceActual];
-      
       fotoActual.src = item.archivo;
       textoActual.textContent = item.texto;
 
-      btnAnterior.style.visibility = indiceActual === 0 ? 'hidden' : 'visible';
-      btnSiguiente.style.visibility = indiceActual === paginas.length - 1 ? 'hidden' : 'visible';
+      // Actualizar mensaje de guía
+      if (indiceActual === 0) {
+        guiaInterior.textContent = 'Toca el lado derecho para avanzar ▶';
+      } else if (indiceActual === paginas.length - 1) {
+        guiaInterior.textContent = '◀ Toca el lado izquierdo para volver';
+      } else {
+        guiaInterior.textContent = '◀ Izquierda para volver | Derecha para avanzar ▶';
+      }
     }
   </script>
 </body>
