@@ -8,7 +8,6 @@
 
 body {
   background-color: #ffe4e8;
-  color: #333;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,12 +15,16 @@ body {
   justify-content: center;
   overflow-x: hidden;
   font-family: 'Lato', sans-serif;
-  /* Evitar que se seleccione texto al hacer múltiples clics rápidos */
-  user-select: none; 
+  user-select: none; /* Evita que el texto se sombree al hacer clics rápidos */
 }
 
 .oculto {
   display: none !important;
+}
+
+.activa {
+  display: flex !important;
+  width: 100%;
 }
 
 /* === PORTADA DE REVISTA === */
@@ -42,20 +45,19 @@ body {
   height: 650px;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 50px rgba(201, 24, 74, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 2.5rem 2rem;
   color: #fff;
-  margin-bottom: 1.5rem;
   border: 5px solid #fff;
 }
 
 .overlay-portada {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.7) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(138, 12, 49, 0.6) 100%);
   z-index: 1;
 }
 
@@ -125,21 +127,6 @@ body {
   font-size: 1.2rem;
 }
 
-/* Instrucción Titilante (Sustituye al Botón) */
-.instruccion-clic {
-  color: #ff4d6d;
-  font-weight: bold;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  animation: parpadear 2.5s infinite;
-  pointer-events: none; /* Que el click la atraviese */
-}
-
-@keyframes parpadear {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
 /* === INTERIOR (LIBRO) === */
 #pantalla-visor {
   width: 100%;
@@ -153,12 +140,12 @@ body {
   display: flex;
   flex-direction: row;
   background: #fff;
-  max-width: 1000px;
+  max-width: 1050px;
   width: 100%;
-  min-height: 600px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  min-height: 650px;
+  box-shadow: 0 20px 40px rgba(201, 24, 74, 0.15);
   position: relative;
-  background-image: linear-gradient(to right, #ffffff 48%, #f0f0f0 50%, #ffffff 52%);
+  background-image: linear-gradient(to right, #ffffff 48%, #f8e1e5 50%, #ffffff 52%);
 }
 
 .animacion-pasar {
@@ -171,99 +158,139 @@ body {
   100% { opacity: 1; transform: scale(1); }
 }
 
-.pagina-media, .pagina-texto {
+/* Diseños de Páginas (Rosa y Blanca) */
+.pagina-rosa {
   flex: 1;
+  background-color: #ff758f; /* Rosa principal de la hoja izquierda */
+  color: #fff;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagina-clara {
+  flex: 1;
+  background-color: #fff;
+  color: #111;
   padding: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.pagina-media {
+.layout-centrado {
+  justify-content: center;
   align-items: center;
 }
 
-#foto-actual {
+/* Mosaicos de la Página Rosa */
+.mosaico-rosa {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "img1 img2"
+    "img3 img2"
+    "img3 img4";
+  gap: 15px;
+  flex-grow: 1;
+  margin-bottom: 2rem;
+}
+
+.mosaico-rosa img {
   width: 100%;
-  max-height: 500px;
+  height: 100%;
   object-fit: cover;
+  border-radius: 4px;
+  border: 3px solid #fff; /* Borde blanco para resaltar en el fondo rosa */
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  border: 5px solid #fff;
-  outline: 1px solid #ffb3c1;
   pointer-events: none;
 }
 
-.titulo-articulo {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  color: #1a1a1a;
-  margin-bottom: 1rem;
+.texto-pie-rosa {
+  font-size: 1rem;
   font-style: italic;
+  text-align: justify;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-.separador-rosa {
-  width: 50px;
-  height: 3px;
-  background: #ff4d6d;
+/* Tipografía y bloques de la Página Blanca */
+.titulo-quien {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  line-height: 0.95;
+  color: #c9184a; /* Fucsia cereza elegante */
   margin-bottom: 1.5rem;
 }
 
-/* Caja de texto (Se permite interacción para scroll) */
-.contenedor-texto {
-  max-height: 320px;
-  overflow-y: auto;
-  margin-bottom: 2rem;
-  padding-right: 15px;
-  user-select: text; /* Permitir seleccionar el texto */
-}
-
-.contenedor-texto::-webkit-scrollbar {
-  width: 6px;
-}
-
-.contenedor-texto::-webkit-scrollbar-thumb {
-  background: #ffb3c1;
-  border-radius: 10px;
+.fuente-script {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 3.2rem;
+  color: #ff4d6d;
 }
 
 .texto-editorial {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #444;
+  color: #555;
+  margin-bottom: 1rem;
   text-align: justify;
 }
 
-.instruccion-interior {
-  text-align: center;
-  color: #ffb3c1;
-  font-weight: bold;
-  font-size: 0.95rem;
-  margin-top: auto;
+.mosaico-claro {
+  display: flex;
+  gap: 15px;
+  margin: 1.5rem 0;
+}
+
+.mosaico-claro img {
+  flex: 1;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(201, 24, 74, 0.15);
   pointer-events: none;
 }
 
+.caja-destacada {
+  border: 1px solid #ffb3c1;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  background: #fff0f3; /* Fondo rosa ultra clarito */
+  font-style: italic;
+  font-size: 1rem;
+  text-align: center;
+  color: #c9184a;
+  border-radius: 5px;
+}
+
+/* Scroll para el texto largo final */
+.contenedor-scroll {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 15px;
+  user-select: text;
+}
+
+.contenedor-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contenedor-scroll::-webkit-scrollbar-thumb {
+  background: #ffb3c1;
+  border-radius: 10px;
+}
+
 @media (max-width: 768px) {
-  .revista-portada {
-    height: 500px;
-    padding: 1.5rem;
-  }
-  .portada-titulo {
-    font-size: 3rem;
-  }
-  .portada-nombre {
-    font-size: 1.8rem;
-  }
-  .libro-abierto {
-    flex-direction: column;
-    background-image: none; 
-  }
-  .pagina-media, .pagina-texto {
-    padding: 1.5rem;
-  }
-  .contenedor-texto {
-    max-height: 250px;
-  }
-  .instruccion-clic {
-    font-size: 0.95rem;
-  }
+  .revista-portada { height: 500px; padding: 1.5rem; }
+  .portada-titulo { font-size: 3rem; }
+  .portada-nombre { font-size: 1.8rem; }
+  .libro-abierto { flex-direction: column; background-image: none; }
+  .pagina-rosa, .pagina-clara { padding: 1.5rem; }
+  .mosaico-rosa { min-height: 350px; }
+  .contenedor-scroll { max-height: 350px; }
+  .titulo-quien { font-size: 2.5rem; }
+  .fuente-script { font-size: 2.2rem; }
 }
