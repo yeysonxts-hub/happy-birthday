@@ -13,7 +13,7 @@
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- === PORTADA DE LA REVISTA === -->
+  <!-- === PORTADA === -->
   <div id="pantalla-portada" class="contenedor-portada">
     <div class="revista-portada" style="background-image: url('foto1.jpeg');">
       <div class="overlay-portada"></div>
@@ -32,140 +32,144 @@
         </div>
       </div>
     </div>
-    <!-- Mensaje guía en lugar de botón -->
-    <p class="instruccion-clic">Toca la mitad derecha de la pantalla para abrir ▶</p>
   </div>
 
   <!-- === INTERIOR DE LA REVISTA === -->
   <div id="pantalla-visor" class="oculto">
     <div class="libro-abierto" id="libro-abierto">
       
-      <!-- Página Izquierda (Fotos) -->
-      <div class="pagina-media">
-        <img id="foto-actual" src="" alt="Recuerdo">
+      <!-- SPREAD 1: Diseño Editorial -->
+      <div class="spread activa" id="spread-0">
+        
+        <!-- Lado Izquierdo (Fondo Rosa con Mosaico) -->
+        <div class="pagina-rosa">
+          <div class="mosaico-rosa">
+            <img src="foto2.jpeg" style="grid-area: img1;" alt="">
+            <img src="foto3.jpeg" style="grid-area: img2;" alt="">
+            <img src="foto4.jpeg" style="grid-area: img3;" alt="">
+            <img src="foto5.jpeg" style="grid-area: img4;" alt="">
+          </div>
+          <p class="texto-pie-rosa">Escribe aquí tu texto de dedicatoria inferior. Este espacio está diseñado para guardar tus pensamientos más sinceros y recuerdos inolvidables.</p>
+        </div>
+
+        <!-- Lado Derecho (Blanco con Detalles Rosas) -->
+        <div class="pagina-clara">
+          <h2 class="titulo-quien">¿Quién<br><span class="fuente-script">eres tú</span><br>Para mí?</h2>
+          
+          <p class="texto-editorial">Escribe aquí el primer párrafo. Puedes contar una anécdota, lo que significa para ti su compañía o cómo ilumina tus días.</p>
+          <p class="texto-editorial">Escribe aquí el segundo párrafo. Expresa lo que te inspira y cómo te motiva a ser mejor.</p>
+          
+          <div class="mosaico-claro">
+            <img src="foto6.jpeg" alt="">
+            <img src="foto7.jpeg" alt="">
+          </div>
+          
+          <div class="caja-destacada">
+            <p>"Escribe aquí una frase o un recuerdo muy especial entre comillas. Este es el texto destacado del artículo."</p>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Página Derecha (Textos) -->
-      <div class="pagina-texto">
-        <h2 class="titulo-articulo">¿Quién eres tú para mí?</h2>
-        <div class="separador-rosa"></div>
+      <!-- SPREAD 2: Mensaje Final -->
+      <div class="spread oculto" id="spread-1">
         
-        <!-- Contenedor del texto (aislado para permitir hacer scroll sin cambiar de página) -->
-        <div class="contenedor-texto">
-          <p id="texto-actual" class="texto-editorial"></p>
+        <!-- Lado Izquierdo (Fondo Rosa con resto de fotos) -->
+        <div class="pagina-rosa">
+          <div class="mosaico-rosa">
+            <img src="foto8.jpeg" style="grid-area: img1;" alt="">
+            <img src="foto9.jpeg" style="grid-area: img2;" alt="">
+            <img src="foto10.jpeg" style="grid-area: img3;" alt="">
+            <img src="foto11.jpeg" style="grid-area: img4;" alt="">
+          </div>
         </div>
-        
-        <!-- Mensaje guía interno -->
-        <p class="instruccion-interior" id="guia-interior">◀ Lado izquierdo para volver | Lado derecho para avanzar ▶</p>
+
+        <!-- Lado Derecho (Blanco con Mensaje Final Largo) -->
+        <div class="pagina-clara layout-centrado">
+          <div class="contenedor-scroll">
+            <p class="texto-editorial">¡Feliz cumpleaños! Eres una chica unica y muy especial para mi. Te amo demasiado. Fuiste quien le dio brillo a mi vida, antes de conocerte vivia la vida en automatico sin ningun proposito y cuando te conoci simplemente todo fluyo, entraste en mi vida sin pedir permiso y me hiciste ver la vida de otra manera. De que no todo estaba perdido para mi y cada que tenia algun problema o me sentia decaido nunca te lo decia,porque no queria preocuparte , pero te juro que cuando te veia todo desaparecia y queria hacerte la chica mas feliz del mundo. Se que no fui perfecto, pero estoy mejorando. Estoy loco por ti , tanto que aguantaria lo que sea por ti. Se que me dejaste las cosas en claro,pero siento que todavia no pierdes las esperanzas en mi y sabes que puedo mejorar y ya no volver a lo mismo y no te vas a arrepentir si decides confiar en mi una ultima vez.</p>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </div>
 
   <script>
-    // Lista de las 11 fotos y sus textos
-    const paginas = [
-      { archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
-      { archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
-      { archivo: 'foto3.jpeg', texto: 'Comentario para la foto 3...' },
-      { archivo: 'foto4.jpeg', texto: 'Comentario para la foto 4...' },
-      { archivo: 'foto5.jpeg', texto: 'Comentario para la foto 5...' },
-      { archivo: 'foto6.jpeg', texto: 'Comentario para la foto 6...' },
-      { archivo: 'foto7.jpeg', texto: 'Comentario para la foto 7...' },
-      { archivo: 'foto8.jpeg', texto: 'Comentario para la foto 8...' },
-      { archivo: 'foto9.jpeg', texto: 'Comentario para la foto 9...' },
-      { archivo: 'foto10.jpeg', texto: 'Comentario para la foto 10...' },
-      { 
-        archivo: 'foto11.jpeg', 
-        texto: '¡Feliz cumpleaños! Eres una chica unica y muy especial para mi. Te amo demasiado. Fuiste quien le dio brillo a mi vida, antes de conocerte vivia la vida en automatico sin ningun proposito y cuando te conoci simplemente todo fluyo, entraste en mi vida sin pedir permiso y me hiciste ver la vida de otra manera. De que no todo estaba perdido para mi y cada que tenia algun problema o me sentia decaido nunca te lo decia,porque no queria preocuparte , pero te juro que cuando te veia todo desaparecia y queria hacerte la chica mas feliz del mundo. Se que no fui perfecto, pero estoy mejorando. Estoy loco por ti , tanto que aguantaria lo que sea por ti. Se que me dejaste las cosas en claro,pero siento que todavia no pierdes las esperanzas en mi y sabes que puedo mejorar y ya no volver a lo mismo y no te vas a arrepentir si decides confiar en mi una ultima vez.' 
-      }
-    ];
-
-    let indiceActual = 0;
-
     const pantallaPortada = document.getElementById('pantalla-portada');
     const pantallaVisor = document.getElementById('pantalla-visor');
     const libroAbierto = document.getElementById('libro-abierto');
     const audioFondo = document.getElementById('audio-fondo');
+    const spreads = document.querySelectorAll('.spread');
     
-    const fotoActual = document.getElementById('foto-actual');
-    const textoActual = document.getElementById('texto-actual');
-    const guiaInterior = document.getElementById('guia-interior');
+    let spreadIndex = 0;
 
-    // === LÓGICA DE CLICS EN PANTALLA ===
+    // Lógica de clics invisibles
     document.addEventListener('click', (e) => {
-      // Evitar que cambie de página si el usuario está intentando arrastrar/hacer scroll en el texto largo
-      if (e.target.closest('.contenedor-texto')) return;
+      // Permitir hacer clic/scroll dentro de las cajas de texto sin cambiar de página
+      if (e.target.closest('.contenedor-scroll')) return;
 
       const mitadPantalla = window.innerWidth / 2;
       const clicDerecha = e.clientX > mitadPantalla;
 
-      // Fase 1: Si estamos en la portada
       if (pantallaPortada.style.display !== 'none') {
+        // Abrir revista desde la portada
         if (clicDerecha) {
           pantallaPortada.style.display = 'none';
+          pantallaVisor.classList.remove('oculto');
           pantallaVisor.style.display = 'flex';
           audioFondo.play();
-          actualizarPagina();
         }
-      } 
-      // Fase 2: Si estamos dentro de la revista
-      else {
+      } else {
+        // Navegar dentro de la revista
         if (clicDerecha) {
-          if (indiceActual < paginas.length - 1) {
-            indiceActual++;
+          if (spreadIndex < spreads.length - 1) {
+            spreadIndex++;
             aplicarAnimacion();
           }
         } else {
-          if (indiceActual > 0) {
-            indiceActual--;
+          if (spreadIndex > 0) {
+            spreadIndex--;
             aplicarAnimacion();
           }
         }
       }
     });
 
-    // === CAMBIO VISUAL DEL MOUSE ===
+    // Control del cursor del mouse
     document.addEventListener('mousemove', (e) => {
       const mitad = window.innerWidth / 2;
       
-      // Portada: Solo cursor en la derecha
       if (pantallaPortada.style.display !== 'none') {
         document.body.style.cursor = (e.clientX > mitad) ? 'pointer' : 'default';
-      } 
-      // Interior: Cursor a los lados dependiendo si hay página
-      else {
-        if (e.clientX > mitad && indiceActual < paginas.length - 1) {
-          document.body.style.cursor = 'pointer'; // Hay página siguiente
-        } else if (e.clientX <= mitad && indiceActual > 0) {
-          document.body.style.cursor = 'pointer'; // Hay página anterior
+      } else {
+        if (e.clientX > mitad && spreadIndex < spreads.length - 1) {
+          document.body.style.cursor = 'pointer'; 
+        } else if (e.clientX <= mitad && spreadIndex > 0) {
+          document.body.style.cursor = 'pointer'; 
         } else {
-          document.body.style.cursor = 'default'; // Límite de revista
+          document.body.style.cursor = 'default'; 
         }
       }
     });
 
-    // === ANIMACIÓN DE REVISTA ===
     function aplicarAnimacion() {
       libroAbierto.classList.remove('animacion-pasar');
-      void libroAbierto.offsetWidth; // Reiniciar flujo
+      void libroAbierto.offsetWidth; 
       libroAbierto.classList.add('animacion-pasar');
-      setTimeout(actualizarPagina, 150); // Cambiar la info a mitad de la hoja
-    }
-
-    function actualizarPagina() {
-      const item = paginas[indiceActual];
-      fotoActual.src = item.archivo;
-      textoActual.textContent = item.texto;
-
-      // Actualizar mensaje de guía
-      if (indiceActual === 0) {
-        guiaInterior.textContent = 'Toca el lado derecho para avanzar ▶';
-      } else if (indiceActual === paginas.length - 1) {
-        guiaInterior.textContent = '◀ Toca el lado izquierdo para volver';
-      } else {
-        guiaInterior.textContent = '◀ Izquierda para volver | Derecha para avanzar ▶';
-      }
+      
+      setTimeout(() => {
+        spreads.forEach((spread, index) => {
+          if (index === spreadIndex) {
+            spread.classList.remove('oculto');
+            spread.classList.add('activa');
+          } else {
+            spread.classList.add('oculto');
+            spread.classList.remove('activa');
+          }
+        });
+      }, 150); 
     }
   </script>
 </body>
