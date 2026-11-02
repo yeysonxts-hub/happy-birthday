@@ -50,7 +50,6 @@ body {
   border: 5px solid #fff;
 }
 
-/* Oscurece sutilmente arriba y abajo para leer las letras blancas */
 .overlay-portada {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -63,7 +62,6 @@ body {
   z-index: 2;
 }
 
-/* Encabezado Portada */
 .portada-header {
   text-align: center;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
@@ -93,7 +91,6 @@ body {
   padding-right: 5px;
 }
 
-/* Pie de Portada */
 .portada-footer {
   display: flex;
   justify-content: space-between;
@@ -126,7 +123,6 @@ body {
   font-size: 1.2rem;
 }
 
-/* Botón Abrir */
 .btn-abrir-revista {
   background: #ff4d6d;
   color: white;
@@ -147,7 +143,7 @@ body {
   transform: scale(1.05);
 }
 
-/* === INTERIOR (LIBRO / REVISTA) === */
+/* === INTERIOR (LIBRO) === */
 #pantalla-visor {
   width: 100%;
   padding: 2rem 1rem;
@@ -190,7 +186,7 @@ body {
   align-items: center;
 }
 
-#foto-actual, #video-actual {
+#foto-actual {
   width: 100%;
   max-height: 500px;
   object-fit: cover;
@@ -211,14 +207,30 @@ body {
   width: 50px;
   height: 3px;
   background: #ff4d6d;
+  margin-bottom: 1.5rem;
+}
+
+/* Caja del texto con scroll por si es muy largo */
+.contenedor-texto {
+  max-height: 320px;
+  overflow-y: auto;
   margin-bottom: 2rem;
+  padding-right: 10px;
+}
+
+.contenedor-texto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contenedor-texto::-webkit-scrollbar-thumb {
+  background: #ffb3c1;
+  border-radius: 10px;
 }
 
 .texto-editorial {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: #444;
-  margin-bottom: 3rem;
   text-align: justify;
 }
 
@@ -262,5 +274,8 @@ body {
   }
   .pagina-media, .pagina-texto {
     padding: 1.5rem;
+  }
+  .contenedor-texto {
+    max-height: 250px;
   }
 }
