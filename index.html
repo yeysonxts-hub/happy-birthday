@@ -8,14 +8,14 @@
 </head>
 <body>
 
+  <!-- Música de fondo -->
   <audio id="audio-fondo" loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- === PORTADA DE LA REVISTA (CON FOTO DE FONDO) === -->
+  <!-- === PORTADA DE LA REVISTA === -->
   <div id="pantalla-portada" class="contenedor-portada">
     <div class="revista-portada" style="background-image: url('foto1.jpeg');">
-      <!-- Sombreado para que las letras blancas resalten -->
       <div class="overlay-portada"></div>
       
       <div class="portada-header">
@@ -35,23 +35,22 @@
     <button id="btn-comenzar" class="btn-abrir-revista">ABRIR REVISTA ▶</button>
   </div>
 
-  <!-- === INTERIOR DEL LIBRO / REVISTA === -->
+  <!-- === INTERIOR DE LA REVISTA === -->
   <div id="pantalla-visor" class="oculto">
     <div class="libro-abierto" id="libro-abierto">
       
-      <!-- Página Izquierda (Media) -->
+      <!-- Página Izquierda (Solo Fotos) -->
       <div class="pagina-media">
         <img id="foto-actual" src="" alt="Recuerdo">
-        <video id="video-actual" class="oculto" controls preload="metadata">
-          <source src="" type="video/mp4">
-        </video>
       </div>
 
-      <!-- Página Derecha (Texto) -->
+      <!-- Página Derecha (Textos) -->
       <div class="pagina-texto">
         <h2 class="titulo-articulo">¿Quién eres tú para mí?</h2>
         <div class="separador-rosa"></div>
-        <p id="texto-actual" class="texto-editorial"></p>
+        <div class="contenedor-texto">
+          <p id="texto-actual" class="texto-editorial"></p>
+        </div>
         
         <div class="controles-libro">
           <button id="btn-anterior" class="btn-nav">◀ Pág</button>
@@ -63,22 +62,20 @@
   </div>
 
   <script>
-    // Lista de fotos y video (Edita tus comentarios aquí)
+    // Lista de las 11 fotos y sus textos
     const paginas = [
-      { tipo: 'foto', archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
-      { tipo: 'foto', archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
-      { tipo: 'foto', archivo: 'foto3.jpeg', texto: 'Comentario para la foto 3...' },
-      { tipo: 'foto', archivo: 'foto4.jpeg', texto: 'Comentario para la foto 4...' },
-      { tipo: 'foto', archivo: 'foto5.jpeg', texto: 'Comentario para la foto 5...' },
-      { tipo: 'foto', archivo: 'foto6.jpeg', texto: 'Comentario para la foto 6...' },
-      { tipo: 'foto', archivo: 'foto7.jpeg', texto: 'Comentario para la foto 7...' },
-      { tipo: 'foto', archivo: 'foto8.jpeg', texto: 'Comentario para la foto 8...' },
-      { tipo: 'foto', archivo: 'foto9.jpeg', texto: 'Comentario para la foto 9...' },
-      { tipo: 'foto', archivo: 'foto10.jpeg', texto: 'Comentario para la foto 10...' },
-      { tipo: 'foto', archivo: 'foto11.jpeg', texto: 'Comentario para la foto 11...' },
+      { archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
+      { archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
+      { archivo: 'foto3.jpeg', texto: 'Comentario para la foto 3...' },
+      { archivo: 'foto4.jpeg', texto: 'Comentario para la foto 4...' },
+      { archivo: 'foto5.jpeg', texto: 'Comentario para la foto 5...' },
+      { archivo: 'foto6.jpeg', texto: 'Comentario para la foto 6...' },
+      { archivo: 'foto7.jpeg', texto: 'Comentario para la foto 7...' },
+      { archivo: 'foto8.jpeg', texto: 'Comentario para la foto 8...' },
+      { archivo: 'foto9.jpeg', texto: 'Comentario para la foto 9...' },
+      { archivo: 'foto10.jpeg', texto: 'Comentario para la foto 10...' },
       { 
-        tipo: 'video', 
-        archivo: 'video.mp4', 
+        archivo: 'foto11.jpeg', 
         texto: '¡Feliz cumpleaños! Eres una chica unica y muy especial para mi. Te amo demasiado. Fuiste quien le dio brillo a mi vida, antes de conocerte vivia la vida en automatico sin ningun proposito y cuando te conoci simplemente todo fluyo, entraste en mi vida sin pedir permiso y me hiciste ver la vida de otra manera. De que no todo estaba perdido para mi y cada que tenia algun problema o me sentia decaido nunca te lo decia,porque no queria preocuparte , pero te juro que cuando te veia todo desaparecia y queria hacerte la chica mas feliz del mundo. Se que no fui perfecto, pero estoy mejorando. Estoy loco por ti , tanto que aguantaria lo que sea por ti. Se que me dejaste las cosas en claro,pero siento que todavia no pierdes las esperanzas en mi y sabes que puedo mejorar y ya no volver a lo mismo y no te vas a arrepentir si decides confiar en mi una ultima vez.' 
       }
     ];
@@ -91,9 +88,7 @@
     const audioFondo = document.getElementById('audio-fondo');
     
     const fotoActual = document.getElementById('foto-actual');
-    const videoActual = document.getElementById('video-actual');
     const textoActual = document.getElementById('texto-actual');
-    
     const btnAnterior = document.getElementById('btn-anterior');
     const btnSiguiente = document.getElementById('btn-siguiente');
 
@@ -122,25 +117,15 @@
 
     function aplicarAnimacion() {
       libroAbierto.classList.remove('animacion-pasar');
-      void libroAbierto.offsetWidth; 
+      void libroAbierto.offsetWidth; // Reiniciar animación
       libroAbierto.classList.add('animacion-pasar');
-      setTimeout(actualizarPagina, 150); 
+      setTimeout(actualizarPagina, 150); // Cambiar contenido a mitad del efecto
     }
 
     function actualizarPagina() {
       const item = paginas[indiceActual];
-
-      if (item.tipo === 'foto') {
-        fotoActual.style.display = 'block';
-        videoActual.style.display = 'none';
-        videoActual.pause();
-        fotoActual.src = item.archivo;
-      } else if (item.tipo === 'video') {
-        fotoActual.style.display = 'none';
-        videoActual.style.display = 'block';
-        videoActual.src = item.archivo;
-      }
-
+      
+      fotoActual.src = item.archivo;
       textoActual.textContent = item.texto;
 
       btnAnterior.style.visibility = indiceActual === 0 ? 'hidden' : 'visible';
