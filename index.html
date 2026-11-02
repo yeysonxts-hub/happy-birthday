@@ -12,19 +12,30 @@
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- PORTADA DE LA REVISTA -->
+  <!-- === PORTADA DE LA REVISTA (CON FOTO DE FONDO) === -->
   <div id="pantalla-portada" class="contenedor-portada">
-    <div class="contenido-portada">
-      <p class="revista-top">EDICIÓN ESPECIAL DE CUMPLEAÑOS</p>
-      <h1 class="revista-titulo">HAPPY<br>BIRTHDAY</h1>
-      <p class="revista-subtitulo">MAGAZINE EDITION</p>
-      <div class="codigo-barras"></div>
-      <h2 class="revista-nombre">SONALY</h2>
-      <button id="btn-comenzar" class="btn-revista">Abrir revista</button>
+    <div class="revista-portada" style="background-image: url('foto1.jpeg');">
+      <!-- Sombreado para que las letras blancas resalten -->
+      <div class="overlay-portada"></div>
+      
+      <div class="portada-header">
+        <p class="portada-happy">HAPPY</p>
+        <h1 class="portada-titulo">BIRTHDAY</h1>
+        <p class="portada-magazine">MAGAZINE</p>
+      </div>
+      
+      <div class="portada-footer">
+        <div class="codigo-barras"></div>
+        <div class="portada-info">
+          <h2 class="portada-nombre">SONALY</h2>
+          <p class="portada-edicion">BIRTHDAY EDITION</p>
+        </div>
+      </div>
     </div>
+    <button id="btn-comenzar" class="btn-abrir-revista">ABRIR REVISTA ▶</button>
   </div>
 
-  <!-- INTERIOR DEL LIBRO / REVISTA -->
+  <!-- === INTERIOR DEL LIBRO / REVISTA === -->
   <div id="pantalla-visor" class="oculto">
     <div class="libro-abierto" id="libro-abierto">
       
@@ -52,6 +63,7 @@
   </div>
 
   <script>
+    // Lista de fotos y video (Edita tus comentarios aquí)
     const paginas = [
       { tipo: 'foto', archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
       { tipo: 'foto', archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
@@ -85,6 +97,7 @@
     const btnAnterior = document.getElementById('btn-anterior');
     const btnSiguiente = document.getElementById('btn-siguiente');
 
+    // Botón de abrir revista
     document.getElementById('btn-comenzar').addEventListener('click', () => {
       pantallaPortada.style.display = 'none';
       pantallaVisor.style.display = 'flex';
@@ -92,6 +105,7 @@
       actualizarPagina();
     });
 
+    // Controles de página
     btnSiguiente.addEventListener('click', () => {
       if (indiceActual < paginas.length - 1) {
         indiceActual++;
@@ -108,9 +122,9 @@
 
     function aplicarAnimacion() {
       libroAbierto.classList.remove('animacion-pasar');
-      void libroAbierto.offsetWidth; // Reiniciar animación
+      void libroAbierto.offsetWidth; 
       libroAbierto.classList.add('animacion-pasar');
-      setTimeout(actualizarPagina, 150); // Cambiar contenido a mitad de la animación
+      setTimeout(actualizarPagina, 150); 
     }
 
     function actualizarPagina() {
