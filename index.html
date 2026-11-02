@@ -3,132 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¡Feliz Cumpleaños, Sonaly!</title>
+  <title>Revista Edición Especial - Sonaly</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Audio de fondo -->
   <audio id="audio-fondo" loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- PANTALLA 1: Solo mensaje y botón de inicio -->
-  <div id="pantalla-mensaje">
-    <h1>¡Feliz Cumpleaños, Sonaly! ✨</h1>
-    <div class="caja-mensaje">
-      <p>Hoy celebras un año más de vida. Quería prepararte este detalle porque eres una persona muy especial y quiero que sepas lo mucho que te aprecio y valoro.</p>
-      <p>Gracias por todos los buenos momentos y los bonitos recuerdos compartidos. ¡Espero que pases un día increíble!</p>
+  <!-- PORTADA DE LA REVISTA -->
+  <div id="pantalla-portada" class="contenedor-portada">
+    <div class="contenido-portada">
+      <p class="revista-top">EDICIÓN ESPECIAL DE CUMPLEAÑOS</p>
+      <h1 class="revista-titulo">HAPPY<br>BIRTHDAY</h1>
+      <p class="revista-subtitulo">MAGAZINE EDITION</p>
+      <div class="codigo-barras"></div>
+      <h2 class="revista-nombre">SONALY</h2>
+      <button id="btn-comenzar" class="btn-revista">Abrir revista</button>
     </div>
-    <button id="btn-comenzar" class="btn-bonito">UWU ▶</button>
   </div>
 
-  <!-- PANTALLA 2: Visor interactivo (fotos y video al final) -->
+  <!-- INTERIOR DEL LIBRO / REVISTA -->
   <div id="pantalla-visor" class="oculto">
-    
-    <div class="contenedor-media">
-      <!-- Contenedor de fotos -->
-      <div id="contenedor-imagen">
-        <img id="foto-actual" src="" alt="">
-      </div>
+    <div class="libro-abierto" id="libro-abierto">
       
-      <!-- Contenedor del video -->
-      <div id="contenedor-video" class="oculto">
-        <video id="video-actual" controls preload="metadata">
+      <!-- Página Izquierda (Media) -->
+      <div class="pagina-media">
+        <img id="foto-actual" src="" alt="Recuerdo">
+        <video id="video-actual" class="oculto" controls preload="metadata">
           <source src="" type="video/mp4">
         </video>
       </div>
-    </div>
 
-    <!-- Comentario de cada foto / texto final -->
-    <div id="texto-actual" class="texto-comentario"></div>
-    
-    <!-- Controles de navegación sin contador -->
-    <div class="controles-navegacion">
-      <button id="btn-anterior" class="btn-nav">◀ Anterior</button>
-      <button id="btn-siguiente" class="btn-nav">Siguiente ▶</button>
-    </div>
+      <!-- Página Derecha (Texto) -->
+      <div class="pagina-texto">
+        <h2 class="titulo-articulo">¿Quién eres tú para mí?</h2>
+        <div class="separador-rosa"></div>
+        <p id="texto-actual" class="texto-editorial"></p>
+        
+        <div class="controles-libro">
+          <button id="btn-anterior" class="btn-nav">◀ Pág</button>
+          <button id="btn-siguiente" class="btn-nav">Pág ▶</button>
+        </div>
+      </div>
 
+    </div>
   </div>
 
   <script>
-    // LISTA DE PÁGINAS
     const paginas = [
-      { tipo: 'foto', archivo: 'foto1.jpeg', texto: 'Dios.Eres tan hermosaaaaaaaaaaaaaaaaaaaaaaaaaaaa <3 .Cuando veo tus fotos siempre animan mi dia y me dan fuerzas para cualquier cosa que hago' },
-      { tipo: 'foto', archivo: 'foto2.jpeg', texto: 'La ultima foto tuya que me mandaste :(  .Tus fotitos en el trabajo siempre dandolo todo. Soy tu fan preciosa. lokito for you hahhaha' },
-      { tipo: 'foto', archivo: 'foto3.jpeg', texto: 'El collar que te compre siempre presente en cada fotito donde te veia brillar preciosa' },
-      { tipo: 'foto', archivo: 'foto4.jpeg', texto: 'Las fotitos cuando viaje a verte al pueblo.Sufri demasiado en el viaje la verdad hahaha. me dio dolor de cabeza y senti que moriria xd. Me hiciste subir cerro el segundo dia y la vrd hice mi esfuerzo y se pudo hahahha.Me encanto que estabas todo el rato feliz porque sabias que estaba ahi a tu lado y si por mi hubiera sido me quedaba mas tiempo. Estuve a tu lado lo mas que se podia y te esperaba cada noche a que vengas a verme despues del trabajo. Volveria a viajar solo para verte las veces que quieras te lo juro' },
-      { tipo: 'foto', archivo: 'foto5.jpeg', texto: 'Nuestra salida a la feria y dsp a comer makis me gusto demasiado. Aunque bueno la vrd cualquier plan que incluya estar a tu lado me pone feliz. Ver tu carita preciosa dsp de llevarte los makis y comer como si fueran los ultimos makis del mundo me puso muy feliz' },
-      { tipo: 'foto', archivo: 'foto6.jpeg', texto: 'El paseo al parque de las leyendas.Comprar heladitos y esa sombrilla lo fue todo hahahaha. Sino me hubiera quemado mas de lo que estoy. Nos complementamos bien porque ves cosas que para mi pasan desapercibidas.Nuestro paseito, toda la caminata tomandote fotitos y tu feliz con los animalitos. Todo vale la pena si te hace feliz asi este sudando a full o el pie no me de para mas. Solo verte feliz me es suficiente para seguir' },
-      { tipo: 'foto', archivo: 'foto7.jpeg', texto: 'Tu fotito en el trabajo uwuwuwuwuwuuw. Mi ingenieria favoritaaaaa. Cualquier outfit te queda precioso la vrd jsjjsjss. Y ese fue el camino que me hiciste subir si mal no recuerdo jsjsjsjs. Volveria a subir y bajar solamente por ti' },
-      { tipo: 'foto', archivo: 'foto8.jpeg', texto: 'Tu y tu michi. las mas preciosaaaaaas. Siempre sonriendo y tu michi siempre con cara enojada hahahhaa. ' },
-      { tipo: 'foto', archivo: 'foto9.jpeg', texto: 'Tu tomando desayuno en casita dsp de tu bajada y cerca a tu familia me hacia feliz. NO ME CANSARE DE DECIRLO ERES MUY PRECIOSAAAAAAAA.' },
-      { tipo: 'foto', archivo: 'foto10.jpeg', texto: 'La salida a larcomar.Que puedo decir de la salida.La verdad me sentia muy agotado ese dia y eso sin contar lo sudado que estaba hahahaa. Pero ya lo dije antes y ahora. Todo vale la pena si consigo hacerte Feliz y cada fotito que te tomaba si viste que me esforzaba por sacar el mejor angulo para el ig jsjsjsjs' },
-      { tipo: 'foto', archivo: 'foto11.jpeg', texto: 'Tu mandandome fotos en camita y tmb con pijama son cositas que nunca olvidare.Todas las veces lit me daban ganas de dejar lo que estaba haciendo e ir a tu lado y acurrucarme y decirte lo mucho que te amo, abrazarte y hacerte mimos y besitos que te encantan.' },
+      { tipo: 'foto', archivo: 'foto1.jpeg', texto: 'Comentario para la foto 1...' },
+      { tipo: 'foto', archivo: 'foto2.jpeg', texto: 'Comentario para la foto 2...' },
+      { tipo: 'foto', archivo: 'foto3.jpeg', texto: 'Comentario para la foto 3...' },
+      { tipo: 'foto', archivo: 'foto4.jpeg', texto: 'Comentario para la foto 4...' },
+      { tipo: 'foto', archivo: 'foto5.jpeg', texto: 'Comentario para la foto 5...' },
+      { tipo: 'foto', archivo: 'foto6.jpeg', texto: 'Comentario para la foto 6...' },
+      { tipo: 'foto', archivo: 'foto7.jpeg', texto: 'Comentario para la foto 7...' },
+      { tipo: 'foto', archivo: 'foto8.jpeg', texto: 'Comentario para la foto 8...' },
+      { tipo: 'foto', archivo: 'foto9.jpeg', texto: 'Comentario para la foto 9...' },
+      { tipo: 'foto', archivo: 'foto10.jpeg', texto: 'Comentario para la foto 10...' },
+      { tipo: 'foto', archivo: 'foto11.jpeg', texto: 'Comentario para la foto 11...' },
       { 
         tipo: 'video', 
         archivo: 'video.mp4', 
-        texto: '¡Feliz cumpleaños! Eres una chica única y muy especial para mí. Te amo demasiado. Fuiste quien le dio brillo a mi vida, antes de conocerte vivía la vida en automático sin ningún propósito y cuando te conocí simplemente todo fluyó, entraste en mi vida sin pedir permiso y me hiciste ver la vida de otra manera. De que no todo estaba perdido para mí y cada que tenía algún problema o me sentía decaído nunca te lo decía, porque no quería preocuparte, pero te juro que cuando te veía todo desaparecía y quería hacerte la chica más feliz del mundo. Sé que no fui perfecto, pero estoy mejorando. Estoy loco por ti, tanto que aguantaría lo que sea por ti. Sé que me dejaste las cosas en claro, pero siento que todavía no pierdes las esperanzas en mí y sabes que puedo mejorar y ya no volver a lo mismo.' 
+        texto: '¡Feliz cumpleaños! Eres una chica unica y muy especial para mi. Te amo demasiado. Fuiste quien le dio brillo a mi vida, antes de conocerte vivia la vida en automatico sin ningun proposito y cuando te conoci simplemente todo fluyo, entraste en mi vida sin pedir permiso y me hiciste ver la vida de otra manera. De que no todo estaba perdido para mi y cada que tenia algun problema o me sentia decaido nunca te lo decia,porque no queria preocuparte , pero te juro que cuando te veia todo desaparecia y queria hacerte la chica mas feliz del mundo. Se que no fui perfecto, pero estoy mejorando. Estoy loco por ti , tanto que aguantaria lo que sea por ti. Se que me dejaste las cosas en claro,pero siento que todavia no pierdes las esperanzas en mi y sabes que puedo mejorar y ya no volver a lo mismo y no te vas a arrepentir si decides confiar en mi una ultima vez.' 
       }
     ];
 
     let indiceActual = 0;
 
-    const pantallaMensaje = document.getElementById('pantalla-mensaje');
+    const pantallaPortada = document.getElementById('pantalla-portada');
     const pantallaVisor = document.getElementById('pantalla-visor');
+    const libroAbierto = document.getElementById('libro-abierto');
     const audioFondo = document.getElementById('audio-fondo');
     
-    const contImagen = document.getElementById('contenedor-imagen');
     const fotoActual = document.getElementById('foto-actual');
-    const contVideo = document.getElementById('contenedor-video');
     const videoActual = document.getElementById('video-actual');
-    
     const textoActual = document.getElementById('texto-actual');
+    
     const btnAnterior = document.getElementById('btn-anterior');
     const btnSiguiente = document.getElementById('btn-siguiente');
 
-    // Al hacer clic en el botón inicial
     document.getElementById('btn-comenzar').addEventListener('click', () => {
-      pantallaMensaje.style.display = 'none';
-      pantallaVisor.classList.remove('oculto');
-      pantallaVisor.classList.add('mostrar-flex');
+      pantallaPortada.style.display = 'none';
+      pantallaVisor.style.display = 'flex';
       audioFondo.play();
       actualizarPagina();
     });
 
-    // Control siguiente
     btnSiguiente.addEventListener('click', () => {
       if (indiceActual < paginas.length - 1) {
         indiceActual++;
-        actualizarPagina();
+        aplicarAnimacion();
       }
     });
 
-    // Control anterior
     btnAnterior.addEventListener('click', () => {
       if (indiceActual > 0) {
         indiceActual--;
-        actualizarPagina();
+        aplicarAnimacion();
       }
     });
+
+    function aplicarAnimacion() {
+      libroAbierto.classList.remove('animacion-pasar');
+      void libroAbierto.offsetWidth; // Reiniciar animación
+      libroAbierto.classList.add('animacion-pasar');
+      setTimeout(actualizarPagina, 150); // Cambiar contenido a mitad de la animación
+    }
 
     function actualizarPagina() {
       const item = paginas[indiceActual];
 
       if (item.tipo === 'foto') {
-        contImagen.style.display = 'block';
-        contVideo.style.display = 'none';
+        fotoActual.style.display = 'block';
+        videoActual.style.display = 'none';
         videoActual.pause();
         fotoActual.src = item.archivo;
       } else if (item.tipo === 'video') {
-        contImagen.style.display = 'none';
-        contVideo.style.display = 'block';
+        fotoActual.style.display = 'none';
+        videoActual.style.display = 'block';
         videoActual.src = item.archivo;
       }
 
       textoActual.textContent = item.texto;
 
-      // Ocultar botón anterior en la primera foto y siguiente en la última
       btnAnterior.style.visibility = indiceActual === 0 ? 'hidden' : 'visible';
       btnSiguiente.style.visibility = indiceActual === paginas.length - 1 ? 'hidden' : 'visible';
     }
