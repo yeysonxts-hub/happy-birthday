@@ -1,168 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #1a0b1c 0%, #3b112c 100%);
-  color: #fff;
+  background-color: #ffe4e8; /* Rosa muy suave de fondo */
+  color: #333;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
+  font-family: 'Lato', sans-serif;
 }
 
-/* Clases de visibilidad */
 .oculto {
   display: none !important;
 }
 
-.mostrar-flex {
-  display: flex !important;
-}
-
-/* === PANTALLA 1: Mensaje Inicial === */
-#pantalla-mensaje {
+/* === PORTADA DE REVISTA === */
+.contenedor-portada {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  max-width: 800px;
+  width: 100%;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.contenido-portada {
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  padding: 4rem 2rem;
   text-align: center;
-  animation: aparecer 0.8s ease-in-out forwards;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  border: 10px solid #fff;
+  outline: 1px solid #ffb3c1;
 }
 
-#pantalla-mensaje h1 {
-  font-size: 2.6rem;
-  color: #ffb3c1;
-  margin-bottom: 2rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.caja-mensaje {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 2rem;
-  border-radius: 15px;
-  margin-bottom: 3rem;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 179, 193, 0.3);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.caja-mensaje p {
-  font-size: 1.2rem;
-  line-height: 1.8;
+.revista-top {
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  color: #ff4d6d;
   margin-bottom: 1rem;
 }
 
-.caja-mensaje p:last-child {
-  margin-bottom: 0;
+.revista-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
 }
 
-.btn-bonito {
-  background: #ff4d6d;
-  color: white;
-  border: none;
-  padding: 1.2rem 3rem;
-  font-size: 1.3rem;
+.revista-subtitulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+.revista-nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #ff4d6d;
+  margin-bottom: 3rem;
+  font-style: italic;
+}
+
+.btn-revista {
+  background: #fff;
+  color: #ff4d6d;
+  border: 2px solid #ff4d6d;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-  transition: transform 0.2s, background 0.2s;
+  transition: all 0.3s ease;
 }
 
-.btn-bonito:hover {
-  background: #c9184a;
-  transform: scale(1.05);
-}
-
-/* === PANTALLA 2: Visor === */
-#pantalla-visor {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 700px;
-  padding: 2rem 1.5rem;
-  animation: aparecer 0.8s ease-in-out forwards;
-}
-
-.contenedor-media {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  border: 3px solid rgba(255, 179, 193, 0.5);
-  border-radius: 15px;
-  padding: 1rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 320px;
-}
-
-#foto-actual {
-  max-width: 100%;
-  max-height: 55vh;
-  border-radius: 8px;
-  object-fit: contain;
-  display: block;
-}
-
-#video-actual {
-  width: 100%;
-  max-height: 55vh;
-  border-radius: 8px;
-  display: block;
-}
-
-.texto-comentario {
-  font-size: 1.15rem;
-  text-align: center;
-  margin: 1.5rem 0;
-  min-height: 4rem;
-  line-height: 1.7;
-  padding: 1rem;
+.btn-revista:hover {
+  background: #ff4d6d;
   color: #fff;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 179, 193, 0.2);
-  width: 100%;
 }
 
-/* Botones de Navegación */
-.controles-navegacion {
+/* === INTERIOR (LIBRO / REVISTA) === */
+#pantalla-visor {
+  width: 100%;
+  padding: 2rem 1rem;
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  align-items: center;
+}
+
+.libro-abierto {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  max-width: 1000px;
   width: 100%;
-  padding: 0 0.5rem;
+  min-height: 600px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  position: relative;
+  /* Sombra interna para simular el doblez del libro */
+  background-image: linear-gradient(to right, #ffffff 48%, #f0f0f0 50%, #ffffff 52%);
+}
+
+.animacion-pasar {
+  animation: flip 0.6s ease-in-out;
+}
+
+@keyframes flip {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.97) translateX(-10px); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Columnas del libro */
+.pagina-media, .pagina-texto {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Imagen y Video */
+.pagina-media {
+  align-items: center;
+}
+
+#foto-actual, #video-actual {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: 5px solid #fff;
+  outline: 1px solid #ffb3c1;
+}
+
+/* Textos editoriales */
+.titulo-articulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.separador-rosa {
+  width: 50px;
+  height: 3px;
+  background: #ff4d6d;
+  margin-bottom: 2rem;
+}
+
+.texto-editorial {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 3rem;
+  text-align: justify;
+}
+
+/* Controles de Navegación */
+.controles-libro {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
 }
 
 .btn-nav {
-  background: #ff4d6d;
-  color: white;
-  border: 1px solid #ffb3c1;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 10px;
+  background: transparent;
+  color: #ff4d6d;
+  border: 1px solid #ff4d6d;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
-  transition: background 0.2s, transform 0.1s;
+  transition: all 0.2s;
 }
 
 .btn-nav:hover {
-  background: #c9184a;
-  transform: scale(1.03);
+  background: #ff4d6d;
+  color: #fff;
 }
 
-@keyframes aparecer {
-  from { opacity: 0; transform: scale(0.97); }
-  to { opacity: 1; transform: scale(1); }
+/* Adaptación a Celulares */
+@media (max-width: 768px) {
+  .libro-abierto {
+    flex-direction: column;
+    background-image: none; /* Quitar sombra central en celular */
+  }
+  
+  .pagina-media, .pagina-texto {
+    padding: 1.5rem;
+  }
+  
+  .titulo-articulo {
+    font-size: 2rem;
+  }
+
+  .texto-editorial {
+    font-size: 1rem;
+  }
 }
